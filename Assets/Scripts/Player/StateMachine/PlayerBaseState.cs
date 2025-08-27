@@ -1,0 +1,107 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerBaseState : IState
+{
+    protected PlayerStateMachine stateMachine;
+    protected readonly GroundData groundData;
+
+    public PlayerBaseState(PlayerStateMachine playerStateMachine)
+    {
+        stateMachine = playerStateMachine;
+        groundData = stateMachine.Player.PlayerData.GroundData;
+    }
+    public virtual void Enter()
+    {
+        stateMachine.Target = GameManager.Instance.GetEnemyTarget();
+    }
+
+    public virtual void Exit()
+    {
+    }
+
+    public virtual void HandleInput()
+    {
+    }
+
+    public virtual void Update()
+    {
+        if(stateMachine.Target.IsDIe)
+        {
+            stateMachine.Target = GameManager.Instance.GetEnemyTarget();
+        }
+        Move();
+    }
+
+    public virtual void PhysicsUpdate()
+    {
+    }
+    protected void StartAnimation(int animationHash)
+    {
+        stateMachine.Player.Animator.SetBool(animationHash, true);
+    }
+
+    protected void StopAnimation(int animationHash)
+    {
+        stateMachine.Player.Animator.SetBool(animationHash, false);
+    }
+    private void Move()
+    {
+        Vector3 movementDirection = GetMovementDirection();
+
+        Rotate(movementDirection);
+
+        Move(movementDirection);
+    }
+    private Vector3 GetMovementDirection()
+    {
+        Vector3 dir = (stateMachine.Target.gameObject.transform.position - stateMachine.Player.gameObject.transform.position).normalized;
+        return dir;
+    }
+
+    void Move(Vector3 movementDirection)
+    {
+        float movementSpeed = GetMovementSpeed();
+        stateMachine.Player.Controller.Move((movementDirection * movementSpeed) * Time.deltaTime);
+    }
+
+    private float GetMovementSpeed()
+    {
+        float movementSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
+        return movementSpeed;
+    }
+    void Rotate(Vector3 movementDirection)
+    {
+        if (movementDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
+            stateMachine.Player.transform.rotation = Quaternion.Lerp(stateMachine.Player.transform.rotation, targetRotation, stateMachine.RotationDamping * Time.deltaTime);
+        }
+    }
+    protected float GetNormalizedTime(Animator animator, string tag)
+    {
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
+
+        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
+        {
+            return nextInfo.normalizedTime;
+        }
+        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
+        {
+            return currentInfo.normalizedTime;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+    protected bool IsInAttackRange()
+    {
+        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
+
+        // 무기에서 사정거리 가져오기
+        return playerDistanceSqr <= 3 * 3;
+    }
+}

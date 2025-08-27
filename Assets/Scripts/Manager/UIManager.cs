@@ -9,7 +9,34 @@ public class UIManager : SingletonMono<UIManager>
     public const string UIPrefabPath = "UI/Prefabs/";
 
     private bool _isCleaning;
+    // 껐다 키는 기능만 사용한다면 _uiDictionary가 유용할 거 같지만, 현재는...?
     private Dictionary<string, BaseUI> _uiDictionary = new Dictionary<string, BaseUI>();
+    HUD hud;
+    Gold Gold;
+    Shop shop;
+    Stage stage;
+    Inventory inventory;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        hud = GetUI<HUD>();
+        Gold = GetUI<Gold>();
+        shop = GetUI<Shop>();
+        stage = GetUI<Stage>();
+        inventory = GetUI<Inventory>();
+    }
+    private void Start()
+    {
+        // 플레이어 정보 가져와서 등록
+        GameManager.Instance.Player.Hp.OnValueChange += hud.SetHPBar;
+        GameManager.Instance.Player.Mp.OnValueChange += hud.SetMPBar;
+        GameManager.Instance.Player.Exp.OnValueChange += hud.SetEXPBar;
+        GameManager.Instance.Player.OnLevelUp += hud.SetLVText;
+        GameManager.Instance.Player.UIInit();
+
+        Gold?.SetGoldText(156);
+    }
 
 
     // ================================
@@ -66,7 +93,7 @@ public class UIManager : SingletonMono<UIManager>
         }
 
         // 2. 인스턴스 생성
-        GameObject go = Instantiate(prefab);
+        GameObject go = Instantiate(prefab, gameObject.transform);
 
         // 3. 컴포넌트 획득
         T ui = go.GetComponent<T>();
