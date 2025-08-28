@@ -34,6 +34,6 @@ public class Enemy : BaseCharacter
 
     public override float GetAttackDamage()
     {
-        return enemyData.WeaponDataSO.Damage;
+        return enemyData.WeaponDataSO.Damage * AttackDamageModifier;
     }
 }

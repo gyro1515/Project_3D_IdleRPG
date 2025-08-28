@@ -18,5 +18,6 @@ public class Menu : BaseUI
         openInvenBtn?.onClick.AddListener(equipmentUI.OpenUI);
         openShopBtn?.onClick.AddListener(shop.OpenUI);
         openStageSelBtn?.onClick.AddListener(() => stageSelect.OpenUI()); // 람다식도 된다면 활용해보기
+        CloseUI();// 일단 닫기
     }
 }

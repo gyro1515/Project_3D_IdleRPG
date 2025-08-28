@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyController : BaseController
 {
     Enemy enemy;
-    public event Action OnDropGold;
+    public event Action<Vector3> OnDropGold;
     private EnemyStateMachine stateMachine;
     protected override void Awake()
     {
@@ -38,7 +38,7 @@ public class EnemyController : BaseController
         for (int i = 0; i < amount; i++)
         {
             // 골드 드랍 = 화면에 골드 이미지 생성하고 골드 UI로 날아가기
-            OnDropGold?.Invoke();
+            OnDropGold?.Invoke(gameObject.transform.position);
             yield return new WaitForSeconds(0.1f);
         }
     }

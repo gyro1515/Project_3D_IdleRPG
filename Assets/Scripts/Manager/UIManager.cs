@@ -14,13 +14,15 @@ public class UIManager : SingletonMono<UIManager>
     private Dictionary<string, BaseUI> _uiDictionary = new Dictionary<string, BaseUI>();
     HUD hud;
     Menu menu;
-    
+    public EnemyHpBars EnemyHpBars { get; private set; }
+
 
     protected override void Awake()
     {
         base.Awake();
         hud = GetUI<HUD>();
         menu = GetUI<Menu>();
+        EnemyHpBars = GetUI<EnemyHpBars>();
     }
     private void Start()
     {
@@ -164,4 +166,18 @@ public class UIManager : SingletonMono<UIManager>
         yield return Resources.UnloadUnusedAssets();
         System.GC.Collect();
     }
+    // 여기서부턴 다시 정의 함수
+    public void AddEnemyHpBar(Enemy enemy)
+    {
+        EnemyHpBars.AddEnemyHpBar(enemy);
+    }
+    public void OpenMenu()
+    {
+        menu.OpenUI();
+    }
+    public void AddMovingGoldIcon(Vector3 startPos)
+    {
+        hud.AddMovingGoldIcon(startPos);
+    }
+
 }

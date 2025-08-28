@@ -864,6 +864,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldRectTransform: {fileID: 7351235321458011670}
   goldText: {fileID: 5505078115921422359}
+  GoldIconPrefab: {fileID: 5133419942348429127, guid: 51eed80ad266b4f42b6f8bcf75a2fddc,
+    type: 3}
 --- !u!223 &4808791543040339754
 Canvas:
   m_ObjectHideFlags: 0
@@ -885,7 +887,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &7107719875878678828
 MonoBehaviour:

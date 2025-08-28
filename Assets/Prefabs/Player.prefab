@@ -600,7 +600,7 @@ MonoBehaviour:
   weaponSocket: {fileID: 5308259495188936449}
   ArmorSocket: {fileID: 0}
   ShoesSocket: {fileID: 0}
-  initialWeaponSO: {fileID: 11400000, guid: 1873612e0c3ec414a8b1e1b2788aed0d, type: 2}
+  initialWeaponSO: {fileID: 11400000, guid: 513feca296a674e45991be249b22deb9, type: 2}
 --- !u!143 &425075305509042950
 CharacterController:
   m_ObjectHideFlags: 0

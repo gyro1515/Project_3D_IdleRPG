@@ -7,6 +7,9 @@ public class Gold : BaseUI
     [Header("골드 세팅")]
     [SerializeField] RectTransform goldRectTransform;
     [SerializeField] TMPro.TextMeshProUGUI goldText;
+    [SerializeField] GameObject GoldIconPrefab;
+    List<MovingGoldIcon> movingGoldIcons = new List<MovingGoldIcon>(); // 오브젝트 풀링
+
     int gold = 0;
 
     // 위치로 날아가는 골드 아이콘을 위한 RectTransform
@@ -15,9 +18,22 @@ public class Gold : BaseUI
     {
         goldText.text = goldAmount.ToString();
     }
-    public void AddGoldText() // 골드는 플레이어한테 있겠지만, 혹시나 해서
+    public void AddMovingGoldIcon(Vector3 startPos)
     {
-        gold++;
-        goldText.text = gold.ToString();
+        for (int i = 0; i < movingGoldIcons.Count; i++)
+        {
+            if (movingGoldIcons[i].gameObject.activeSelf) continue; // 활성화된 상태면 패스
+
+            movingGoldIcons[i].Init(startPos, goldRectTransform.position);
+            return; // 재사용하고 종료
+        }
+        // 재사용할 오브젝트가 없으면 새로 생성
+        GameObject go = Instantiate(GoldIconPrefab, transform);
+        MovingGoldIcon movingGoldIcon = go.GetComponent<MovingGoldIcon>();
+        if (movingGoldIcon)
+        {
+            movingGoldIcon?.Init(startPos, goldRectTransform.position);
+            movingGoldIcons.Add(movingGoldIcon);
+        }
     }
 }

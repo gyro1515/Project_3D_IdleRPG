@@ -19,6 +19,6 @@ MonoBehaviour:
   price: 10
   equipPrefab: {fileID: 1376042663735071243, guid: 6840f9840c713314abef0caf015586cf,
     type: 3}
-  damage: 50
+  damage: 5
   equipmentType: 1
   attackRange: 2

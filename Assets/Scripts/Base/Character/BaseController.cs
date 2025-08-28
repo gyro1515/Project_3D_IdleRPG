@@ -14,7 +14,7 @@ public abstract class BaseController : MonoBehaviour
         if (!baseCharacter) return;
         if (baseCharacter.IsDIe) return;
         baseCharacter.Hp.CurrentValue -= dam;
-        Debug.Log($"{baseCharacter.name}이 {dam}의 피해를 입었습니다. 남은 체력: {baseCharacter.Hp.CurrentValue}/{baseCharacter.Hp.MaxValue}");
+        //Debug.Log($"{baseCharacter.name}이 {dam}의 피해를 입었습니다. 남은 체력: {baseCharacter.Hp.CurrentValue}/{baseCharacter.Hp.MaxValue}");
         if (baseCharacter.Hp.CurrentValue == 0)
         {
             baseCharacter.IsDIe = true;

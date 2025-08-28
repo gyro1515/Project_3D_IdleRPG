@@ -53,4 +53,8 @@ public class HUD : BaseUI
     {
         gold?.SetGoldText(goldAmount);
     }
+    public void AddMovingGoldIcon(Vector3 startPos)
+    {
+        gold.AddMovingGoldIcon(startPos);
+    }
 }

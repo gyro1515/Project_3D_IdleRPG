@@ -17,7 +17,6 @@ public class GameManager : SingletonMono<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        // 추후 플레이어 소환 방식으로 변경 예정***********
         Player = Instantiate(playerPrefab).GetComponent<Player>();
         // 테스트 용 적 소환
         for (int i = 0; i < spawnCount; i++)
@@ -36,6 +35,15 @@ public class GameManager : SingletonMono<GameManager>
             }
         }
     }
+    private void Start()
+    {
+        // 적 체력 바 세팅
+        for(int i = 0; i < enemies.Count;i++)
+        {
+            UIManager.Instance.AddEnemyHpBar(enemies[i]);
+            enemies[i].GetComponent<EnemyController>().OnDropGold += UIManager.Instance.AddMovingGoldIcon;
+        }
+    }
     public BaseCharacter GetEnemyTarget()
     {
         BaseCharacter target = null;
@@ -49,6 +57,11 @@ public class GameManager : SingletonMono<GameManager>
                 minDist = (enemies[i].gameObject.transform.position - Player.gameObject.transform.position).sqrMagnitude;
                 target = enemies[i];
             }
+        }
+        if(target == null)
+        {
+            // 타겟이 더이상 없다면
+            UIManager.Instance.OpenMenu();
         }
         return target;
     }

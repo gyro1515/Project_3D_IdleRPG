@@ -14,6 +14,7 @@ public abstract class BaseCharacter : MonoBehaviour
     [field: Header("Animations")]
     [field: SerializeField] public AnimationData AnimationData { get; private set; } = new AnimationData();
     public float AttackRangeModifier { get; set; } = 1f; // 공격 범위 보정값 (아이템으로 변경 가능하게)
+    public float AttackDamageModifier { get; set; } = 1f; // 공격 데미지 보정값 (아이템으로 변경 가능하게)
 
     protected virtual void Awake()
     {

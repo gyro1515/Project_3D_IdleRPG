@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480878f0d4da5aa4aba2e071f9b6b2d0, type: 3}
   m_Name: Postion_3
   m_EditorClassIdentifier: 
-  displayName: "\uD3EC\uC1583"
-  description: "\uCCB4\uB825\uC744 30 \uD68C\uBCF5\uD55C\uB2E4."
+  displayName: "\uBC94\uC704 \uC99D\uAC00 \uD3EC\uC158"
+  description: "30\uCD08\uAC04 \uACF5\uACA9 \uBC94\uC704\uAC00 50% \uC99D\uAC00\uD569\uB2C8\uB2E4."
   itemType: 1
   icon: {fileID: 21300000, guid: 74fbb5d9285789b42b63e347cac3401e, type: 3}
   price: 8
-  consumables: []
+  consumables:
+  - type: 3
+    value: 1.5
+    duration: 30
   maxStackAmount: 11

@@ -68,7 +68,7 @@ public class Player : BaseCharacter
     {
         if (PlayerEquipment.CurEquipments[EEquipmentType.Weapon] == null) return 0; // 무기가 없으면 기본 0
   
-        return PlayerEquipment.CurEquipments[EEquipmentType.Weapon].Damage;
+        return PlayerEquipment.CurEquipments[EEquipmentType.Weapon].Damage * AttackDamageModifier;
     }
 
 }
