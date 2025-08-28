@@ -54,7 +54,7 @@ public class Player : BaseCharacter
         // UI 초기화
         Hp.CurrentValue = Hp.CurrentValue;
         Mp.CurrentValue = Mp.CurrentValue;
-        Exp.CurrentValue = Exp.CurrentValue;
+        Exp.CurrentValue = 0;
         Level = level;
         Gold = gold;
         
@@ -70,5 +70,19 @@ public class Player : BaseCharacter
   
         return PlayerEquipment.CurEquipments[EEquipmentType.Weapon].Damage * AttackDamageModifier;
     }
+    public void AddExp(int amount)
+    {
+        // 레벨 업 상황이라면
+        if(Exp.CurrentValue + amount >= Exp.MaxValue)
+        {
+            int difference = Mathf.RoundToInt(Exp.CurrentValue + amount - Exp.MaxValue);
+            Exp.AddMaxValue(Exp.MaxValue); // 2배씩 경험치 통 증가
+            Level++;
+            Exp.CurrentValue = difference;
+            return;
+        }
+        // 레벨 업 아니면 경험치만 증가
+        Exp.CurrentValue += amount;
+    }    
 
 }

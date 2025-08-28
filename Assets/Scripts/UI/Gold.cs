@@ -5,15 +5,11 @@ using UnityEngine;
 public class Gold : BaseUI
 {
     [Header("골드 세팅")]
-    [SerializeField] RectTransform goldRectTransform;
+    [SerializeField] RectTransform goldRectTransform; // 위치로 날아가는 골드 아이콘을 위한 RectTransform
     [SerializeField] TMPro.TextMeshProUGUI goldText;
     [SerializeField] GameObject GoldIconPrefab;
     List<MovingGoldIcon> movingGoldIcons = new List<MovingGoldIcon>(); // 오브젝트 풀링
 
-    int gold = 0;
-
-    // 위치로 날아가는 골드 아이콘을 위한 RectTransform
-    public RectTransform GoldRectTransform { get; }
     public void SetGoldText(int goldAmount)
     {
         goldText.text = goldAmount.ToString();

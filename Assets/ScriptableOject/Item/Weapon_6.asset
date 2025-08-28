@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_6
   m_EditorClassIdentifier: 
   displayName: "\uAC805"
-  description: "\uD6CC\uB96D\uD55C \uAC80\uC774\uB2E4"
+  description: "\uD6CC\uB96D\uD55C \uAC80\uC774\uB2E4."
   itemType: 0
   icon: {fileID: 21300000, guid: f5f51cbf794121a42a2cfd755da3c26f, type: 3}
   price: 60

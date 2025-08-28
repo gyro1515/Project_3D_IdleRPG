@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class PlayerInventory : MonoBehaviour
     // 띄워서 확인하기
     public InventorySlot[] Items { get; private set; }
     public int SelSlotIdx { get; set; } = -1; // 선택된 슬롯 인덱스
+    Dictionary<ConsumableItemSO, Coroutine> consumDIc = new Dictionary<ConsumableItemSO, Coroutine>();
+    Dictionary<ConsumableItemSO, DurationItemSlot> slotDIc = new Dictionary<ConsumableItemSO, DurationItemSlot>();
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -92,6 +95,26 @@ public class PlayerInventory : MonoBehaviour
             if (!consumableItem) { Debug.LogError("오류"); return; } // 캐스팅 실패시 리턴 -> 오류 
             //consumableItem.UseItem(player); // 아이템 사용
             Debug.Log($"{consumableItem.DisplayName} 사용!");
+            for (int i = 0; i < consumableItem.Consumables.Length; i++)
+            {
+                if (consumableItem.Consumables[i].duration == 0f) // 즉시 사용 아이템
+                {
+                    switch (consumableItem.Consumables[i].type)
+                    {
+                        case ConsumableType.HP:
+                            player.Hp.CurrentValue += consumableItem.Consumables[i].value;
+                            break;
+                        case ConsumableType.MP:
+                            player.Mp.CurrentValue += consumableItem.Consumables[i].value;
+                            break;
+                    }
+                }
+                else // 지속형 아이템(플레이어 능력치 잠시동안 업그레이드)
+                {
+
+                    UIManager.Instance.AddDurationItemUISlot(consumableItem);
+                }
+            }
             Items[SelSlotIdx].ItemCount--;
             if (Items[SelSlotIdx].ItemCount <= 0) // 아이템 개수가 0이하라면
             {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class EquipmentUI : BaseInventory
     [SerializeField] Button unEquipBtn;
     [SerializeField] Button useBtn;
     [SerializeField] Transform equipmentUISlotsTranform;
+    [SerializeField] TextMeshProUGUI itemDescriptionText;
     EquipmentUISlot selectedEquipmentUISlot;
     Dictionary<EEquipmentType, EquipmentUISlot> equipmentUISlotDictionary = new Dictionary<EEquipmentType, EquipmentUISlot>();
     PlayerEquipment playerEquipment;
@@ -65,6 +67,7 @@ public class EquipmentUI : BaseInventory
         else
         {
             EItemType itemType = inventoryUISlots[selectedInventoryUISlot.InventoryUISlotIdx].ItemData.ItemType;
+            itemDescriptionText.text = inventoryUISlots[selectedInventoryUISlot.InventoryUISlotIdx].ItemData.Description;
             equipBtn.gameObject.SetActive(itemType == EItemType.Equipable);
             useBtn.gameObject.SetActive(itemType == EItemType.Consumable);
         }

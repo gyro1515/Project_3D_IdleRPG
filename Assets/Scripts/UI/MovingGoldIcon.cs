@@ -10,7 +10,11 @@ public class MovingGoldIcon : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        gameObject.transform.position = Vector3.Lerp(startPos, endPos, timer);
+        float t = Mathf.Clamp01(timer); // 0~1로 제한
+
+        // Ease In (처음 느리고, 점점 빨라짐)
+        float easedT = t * t;
+        gameObject.transform.position = Vector3.Lerp(startPos, endPos, easedT);
         if (timer >= 1.0f)
         {
             timer = 0.0f;

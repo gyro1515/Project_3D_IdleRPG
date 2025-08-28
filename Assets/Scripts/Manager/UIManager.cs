@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,7 +15,8 @@ public class UIManager : SingletonMono<UIManager>
     private Dictionary<string, BaseUI> _uiDictionary = new Dictionary<string, BaseUI>();
     HUD hud;
     Menu menu;
-    public EnemyHpBars EnemyHpBars { get; private set; }
+    DurationItemUI durationItemUI;
+    EnemyHpBars enemyHpBars;
 
 
     protected override void Awake()
@@ -22,7 +24,8 @@ public class UIManager : SingletonMono<UIManager>
         base.Awake();
         hud = GetUI<HUD>();
         menu = GetUI<Menu>();
-        EnemyHpBars = GetUI<EnemyHpBars>();
+        enemyHpBars = GetUI<EnemyHpBars>();
+        durationItemUI = GetUI<DurationItemUI>();
     }
     private void Start()
     {
@@ -169,7 +172,7 @@ public class UIManager : SingletonMono<UIManager>
     // 여기서부턴 다시 정의 함수
     public void AddEnemyHpBar(Enemy enemy)
     {
-        EnemyHpBars.AddEnemyHpBar(enemy);
+        enemyHpBars.AddEnemyHpBar(enemy);
     }
     public void OpenMenu()
     {
@@ -179,5 +182,8 @@ public class UIManager : SingletonMono<UIManager>
     {
         hud.AddMovingGoldIcon(startPos);
     }
-
+    public void AddDurationItemUISlot(ConsumableItemSO itemData)
+    {
+        durationItemUI?.AddDurationItemUISlot(itemData);
+    }
 }

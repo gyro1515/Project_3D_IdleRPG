@@ -29,7 +29,7 @@ public class CharacterStat
         currentValue = this.maxValue;
         // 생성은 CurrentValue 안쓰기 -> Awake에서 이벤트 등록 전에 호출될 수 있음
     }
-    public void AddMaxValue(float amount) // 최대 체력 증가용
+    public void AddMaxValue(float amount) // 최대 값 증가용
     {
         maxValue += amount;
         CurrentValue += amount;

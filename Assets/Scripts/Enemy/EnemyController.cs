@@ -30,6 +30,8 @@ public class EnemyController : BaseController
     protected override void OnDIe()
     {
         base.OnDIe();
+        // 경험치 즐가
+        GameManager.Instance.Player.AddExp(enemy.EnemyData.Exp);
         // 죽으면 골드 드랍
         StartCoroutine(DropGold(enemy.DropGold()));
     }

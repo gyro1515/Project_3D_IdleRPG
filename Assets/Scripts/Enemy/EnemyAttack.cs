@@ -15,7 +15,6 @@ public class EnemyAttack : MonoBehaviour
         // 오버라이드로 플레이어만 처리하게 변경
         BaseController player = other.GetComponent<BaseController>();
         player?.TakeDamage(enemy.GetAttackDamage());
-        Debug.Log("Player Hit! " + enemy.GetAttackDamage());
 
     }
 }

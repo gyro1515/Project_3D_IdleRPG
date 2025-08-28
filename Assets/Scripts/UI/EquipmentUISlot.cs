@@ -44,9 +44,7 @@ public class EquipmentUISlot : MonoBehaviour
     {
         if (outline == null) return;
         if (icon.sprite == null) return; // 아이템이 없으면 리턴
-        Debug.Log($"{outline.enabled} 슬롯 클릭 전!");
         outline.enabled = !outline.enabled; // 클릭할 때마다 아웃 라인 토글
-        Debug.Log($"{outline.enabled} 슬롯 클릭 후!");
         equipmentUI.SelEquipmentUISlot(outline.enabled ? this : null);
     }
     public void OffOutLine()

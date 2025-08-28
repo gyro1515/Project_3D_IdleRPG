@@ -79,12 +79,17 @@ public class PlayerEquipment : MonoBehaviour
     {
         EquippableItemSO preEquipmentData = CurEquipments[equipmentType];
         if (!preEquipmentData) return;
-        // 장착된 장비 비활성화
-        equipments[preEquipmentData]?.SetActive(false);
-        // 해당 부위 장착 없음 표시
-        CurEquipments[equipmentType] = null;
-        // 장착 해제한 장비 인벤토리에 추가
-        playerInventory.AddItem(preEquipmentData); 
+        // 장착 해제할 장비 인벤토리에 추가해보기
+        if (playerInventory.AddItem(preEquipmentData))
+        {
+            // 추가 됐다면
+            // 장착된 장비 비활성화
+            equipments[preEquipmentData]?.SetActive(false);
+            // 해당 부위 장착 없음 표시
+            CurEquipments[equipmentType] = null;
+        }
+        
+        ; 
     }
 
     public float GetDamage()

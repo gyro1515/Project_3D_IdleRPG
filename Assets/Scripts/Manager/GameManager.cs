@@ -23,7 +23,7 @@ public class GameManager : SingletonMono<GameManager>
         {
             for (int j = 0; j < enemyPrefabs.Count; j++)
             {
-                Vector3 spawnPosition = new Vector3(Random.Range(-25f, 25f), 0, Random.Range(-25f, 25f));
+                Vector3 spawnPosition = new Vector3(Random.Range(-12.5f, 12.5f), 0, Random.Range(-12.5f, 12.5f));
                 Vector3 rot = new Vector3(0, Random.Range(0f, 360f), 0);
                 GameObject enemyObj = Instantiate(enemyPrefabs[j], spawnPosition, Quaternion.Euler(rot));
                 enemyObj.transform.parent = transform;
