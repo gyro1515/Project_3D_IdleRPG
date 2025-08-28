@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.SceneManagement;
 
 public class UIManager : SingletonMono<UIManager>
@@ -12,19 +13,14 @@ public class UIManager : SingletonMono<UIManager>
     // 껐다 키는 기능만 사용한다면 _uiDictionary가 유용할 거 같지만, 현재는...?
     private Dictionary<string, BaseUI> _uiDictionary = new Dictionary<string, BaseUI>();
     HUD hud;
-    Gold Gold;
-    Shop shop;
-    Stage stage;
-    Inventory inventory;
+    Menu menu;
+    
 
     protected override void Awake()
     {
         base.Awake();
         hud = GetUI<HUD>();
-        Gold = GetUI<Gold>();
-        shop = GetUI<Shop>();
-        stage = GetUI<Stage>();
-        inventory = GetUI<Inventory>();
+        menu = GetUI<Menu>();
     }
     private void Start()
     {
@@ -33,9 +29,10 @@ public class UIManager : SingletonMono<UIManager>
         GameManager.Instance.Player.Mp.OnValueChange += hud.SetMPBar;
         GameManager.Instance.Player.Exp.OnValueChange += hud.SetEXPBar;
         GameManager.Instance.Player.OnLevelUp += hud.SetLVText;
+        GameManager.Instance.Player.OnGoldChanged += hud.SetGoldText;
+        // 이벤트 구독하고 플레이어 상태에 맞게 UI초기화
         GameManager.Instance.Player.UIInit();
-
-        Gold?.SetGoldText(156);
+        hud.SetStageText(11);
     }
 
 

@@ -6,10 +6,13 @@ public class GameManager : SingletonMono<GameManager>
 {
     [SerializeField] GameObject playerPrefab;
     public Player Player { get; private set; }
+
+    // 테스트 용***********
     [Header("적 소환 테스트")]
     public List<GameObject> enemyPrefabs;
     public int spawnCount = 5;
     [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
+    // ********************
 
     protected override void Awake()
     {

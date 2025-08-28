@@ -18,5 +18,10 @@ public class ItemDataConsumable
 [CreateAssetMenu(fileName = "New ConsumableItem", menuName = "Item/ConsumableItem")]
 public class ConsumableItemSO : ItemSO
 {
-    
+    [Header("소비 아이템 정보")]
+    [SerializeField] ItemDataConsumable[] consumables;
+    [SerializeField] int maxStackAmount; // 한 칸에 최대 몇개까지 보유할 수 있는가
+    public int MaxStackAmount { get { return maxStackAmount; } }
+    public ItemDataConsumable[] Consumables { get { return consumables; } }
+
 }

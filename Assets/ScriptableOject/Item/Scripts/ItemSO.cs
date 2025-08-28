@@ -7,7 +7,7 @@ public enum EItemType
     Equipable,
     Consumable
 }
-[CreateAssetMenu(fileName = "New Item", menuName = "Item/Item")]
+//[CreateAssetMenu(fileName = "New Item", menuName = "Item/Item")]
 
 public class ItemSO : ScriptableObject
 {
@@ -16,8 +16,11 @@ public class ItemSO : ScriptableObject
     [SerializeField] protected string description;
     [SerializeField] protected EItemType itemType;
     [SerializeField] protected Sprite icon;
+    [SerializeField] protected int price;
     public string DisplayName { get { return displayName; } }
     public string Description { get { return description; } }
     public EItemType ItemType { get { return itemType; } }
     public Sprite Icon { get { return icon; } }
+    public int Price { get { return price; } }
+
 }

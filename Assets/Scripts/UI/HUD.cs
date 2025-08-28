@@ -14,7 +14,13 @@ public class HUD : BaseUI
     [SerializeField] Image expBar;
     [SerializeField] TextMeshProUGUI epText;
     [SerializeField] TextMeshProUGUI lvText;
-
+    [SerializeField] TextMeshProUGUI stageText;
+    
+    Gold gold;
+    private void Awake()
+    {
+        gold = GetComponentInChildren<Gold>();
+    }
     public void Init()
     {
 
@@ -38,5 +44,13 @@ public class HUD : BaseUI
     public void SetLVText(int lv)
     {
         lvText.text = $"Lv. {lv}";
+    }
+    public void SetStageText(int stage)
+    {
+        stageText.text = $"스테이지: {stage}";
+    }
+    public void SetGoldText(int goldAmount)
+    {
+        gold?.SetGoldText(goldAmount);
     }
 }

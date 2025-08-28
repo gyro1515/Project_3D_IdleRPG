@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Item", menuName = "Item/Weapon")]
+[CreateAssetMenu(fileName = "new EquippableItem", menuName = "Item/EquippableItem")]
 
-public class WeaponSO : ItemSO
+public class EquippableItemSO : ItemSO
 {
     [Header("장비 정보 세팅")]
     [SerializeField] GameObject equipPrefab;

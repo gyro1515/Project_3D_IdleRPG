@@ -9,11 +9,20 @@ public class Player : BaseCharacter
     [SerializeField] PlayerSO playerData;
     public PlayerSO PlayerData { get => playerData; }
     PlayerController playerController;
+    public PlayerInventory PlayerInventory {  get; private set; }
     public CharacterStat Mp { get; set; }
     public CharacterStat Exp { get; set; }
     int level = 1;
     // 보유 골드
-    public int Gold { get; set; } = 0;
+    int gold = 999999;
+    public event Action<int> OnGoldChanged;
+    public int Gold { get { return gold; }
+        set
+        {
+            gold = value;
+            OnGoldChanged?.Invoke(gold);
+        }
+    }
     public int Level { get => level;
         set
         {
@@ -27,15 +36,18 @@ public class Player : BaseCharacter
     {
         base.Awake();
         playerController = GetComponent<PlayerController>();
+        PlayerInventory = GetComponent<PlayerInventory>();
         Hp = new CharacterStat(playerData.MaxHp);
         Mp = new CharacterStat(playerData.MaxMp);
         Exp = new CharacterStat(playerData.MaxExp);
     }
     public void UIInit()
     {
+        // UI 초기화
         Hp.CurrentValue = Hp.CurrentValue;
         Mp.CurrentValue = Mp.CurrentValue;
-        Exp.CurrentValue = 0;
-        Level = 1;
+        Exp.CurrentValue = Exp.CurrentValue;
+        Level = level;
+        Gold = gold;
     }
 }
