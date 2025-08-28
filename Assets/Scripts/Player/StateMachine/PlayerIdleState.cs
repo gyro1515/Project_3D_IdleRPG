@@ -25,10 +25,17 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.Update();
 
-        if (stateMachine.Target) // 쫒을 적이 있다면
+        if (!stateMachine.Target) return; // 쫒을 적이 없다면 아무것도 안함
+
+        if (IsInAttackRange() && stateMachine.Player.PlayerEquipment.CurEquipments[EEquipmentType.Weapon]) // 사정거리 안이고 무기가 있다면
+        {
+            Debug.Log("Idle -> Attack");
+            stateMachine.ChangeState(stateMachine.AttackState);
+        }
+        else if(!IsInAttackRange()) // 사정거리 밖이면
         {
             stateMachine.ChangeState(stateMachine.ChasingState);
-            return;
         }
+
     }
 }

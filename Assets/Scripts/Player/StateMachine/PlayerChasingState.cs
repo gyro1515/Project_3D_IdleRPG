@@ -29,8 +29,13 @@ public class PlayerChasingState : PlayerBaseState
             stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
-        else if (IsInAttackRange())
+        else if (IsInAttackRange()) // 사정거리 안이라면
         {
+            if(stateMachine.Player.PlayerEquipment.CurEquipments[EEquipmentType.Weapon] == null)
+            {
+                stateMachine.ChangeState(stateMachine.IdleState); // 무기 없다면 대기 상태
+                return;
+            }
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }

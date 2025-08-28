@@ -17,4 +17,8 @@ MonoBehaviour:
   itemType: 0
   icon: {fileID: 21300000, guid: f5f51cbf794121a42a2cfd755da3c26f, type: 3}
   price: 20
-  equipPrefab: {fileID: 0}
+  equipPrefab: {fileID: 1376042663735071243, guid: 28614d164f160d34094c64fff8faf3e0,
+    type: 3}
+  damage: 10
+  equipmentType: 1
+  attackRange: 2.3

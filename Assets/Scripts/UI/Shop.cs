@@ -33,17 +33,27 @@ public class Shop : BaseInventory
             slot?.Init(this, i, shopItemSOList[i]);
             shopSlots.Add(slot);
         }
-        CloseUI();
     }
     protected override void Start()
     {
         base.Start();
+        CloseUI();
+    }
+    public override void OpenUI()
+    {
+        base.OpenUI();
+        if (selectedSlot)
+        {
+            selectedSlot.OffOutLine();
+            selectedSlot = null;
+        }
     }
     public void SelShopSlot(ShopSlot slot)
     {
+        if(selectedSlot) shopSlots[selectedSlot.ShopSlotIdx].OffOutLine(); // 이전 선택된 슬롯 아웃라인 끄기
         selectedSlot = slot;
         if (selectedSlot == null) { return; } 
-        ResetSelectedShopSlot(selectedSlot.ShopSlotIdx);
+        //ResetSelectedShopSlot(selectedSlot.ShopSlotIdx);
     }
     void ResetSelectedShopSlot(int idx)
     {

@@ -9,13 +9,13 @@ public class Menu : BaseUI
     [SerializeField] Button openInvenBtn;
     [SerializeField] Button openShopBtn;
     [SerializeField] Button openStageSelBtn;
-    [SerializeField] Equipment equipment;
+    [SerializeField] EquipmentUI equipmentUI;
     [SerializeField] Shop shop;
     [SerializeField] Stage stageSelect;
     
     private void Awake()
     {
-        openInvenBtn?.onClick.AddListener(equipment.OpenUI);
+        openInvenBtn?.onClick.AddListener(equipmentUI.OpenUI);
         openShopBtn?.onClick.AddListener(shop.OpenUI);
         openStageSelBtn?.onClick.AddListener(() => stageSelect.OpenUI()); // 람다식도 된다면 활용해보기
     }

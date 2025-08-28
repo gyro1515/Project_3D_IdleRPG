@@ -25,7 +25,7 @@ public class PlayerInventory : MonoBehaviour
         if (itemData.Price > player.Gold) { Debug.Log("돈 없다"); return; }// 돈이 부족하면 리턴
         if (AddItem(itemData, cnt)) { player.Gold -= itemData.Price * cnt;  /*Debug.Log("샀다");*/ } // 아이템 추가시에만 돈 차감
     }
-    bool AddItem(ItemSO itemData, int cnt = 1)
+    public bool AddItem(ItemSO itemData, int cnt = 1)
     {
         if (itemData.ItemType == EItemType.Consumable) // 소모품일 경우
         {
@@ -59,6 +59,17 @@ public class PlayerInventory : MonoBehaviour
         Debug.Log("인벤토리가 가득 찼습니다!");
         return false;
     }
+    public void RemoveItem(int idx, int cnt = 1)
+    {
+        if (idx < 0 || idx >= Items.Length) return; // 인덱스 범위 밖이면 리턴
+        if (Items[idx].ItemData == null) return; // 아이템이 없으면 리턴
+        Items[idx].ItemCount -= cnt;
+        if (Items[idx].ItemCount <= 0) // 아이템 개수가 0이하라면
+        {
+            Items[idx].ItemData = null;
+            Items[idx].ItemCount = 0;
+        }
+    }
     public void SelItem()
     {
         if (SelSlotIdx == -1) return;
@@ -71,7 +82,7 @@ public class PlayerInventory : MonoBehaviour
             Items[SelSlotIdx].ItemCount = 0;
         }
     }
-    public void UseOrEquipItem()
+    public void UseItem()
     {
         if (SelSlotIdx == -1) return;
         if (Items[SelSlotIdx].ItemData == null) return;
@@ -87,13 +98,6 @@ public class PlayerInventory : MonoBehaviour
                 Items[SelSlotIdx].ItemData = null;
                 Items[SelSlotIdx].ItemCount = 0;
             }
-        }
-        else // 장착 아이템
-        {
-             EquippableItemSO equippableItemData = Items[SelSlotIdx].ItemData as EquippableItemSO;
-            if (!equippableItemData) { Debug.LogError("오류"); return; } // 캐스팅 실패시 리턴 -> 오류 
-            //equippableItemData.EquipItem(player); // 아이템 장착
-            Debug.Log($"{equippableItemData.DisplayName} 장착!");
         }
     }
 }

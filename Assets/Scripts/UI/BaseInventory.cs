@@ -12,47 +12,44 @@ public abstract class BaseInventory : BaseUI
     protected PlayerInventory playerInventory;
     protected virtual void Awake()
     {
-        // 인벤토리 세팅
-        InventoryInit();
     }
     protected virtual void Start()
     {
         playerInventory = GameManager.Instance.Player.PlayerInventory;
+        // 인벤토리 세팅
+        InventoryInit();
     }
     public override void OpenUI()
     {
         base.OpenUI();
+        if (selectedInventoryUISlot)
+        {
+            selectedInventoryUISlot.OffOutLine();
+            selectedInventoryUISlot = null;
+        }
         ResetInventoryUI();
     }
     protected void InventoryInit()
     {
-        for (int i = 0; i < GameManager.Instance.Player.PlayerInventory.Items.Length; i++)
+        for (int i = 0; i < playerInventory.Items.Length; i++)
         {
             GameObject go = Instantiate(inventoryUISlotGO, inventoryUISlotsTranform);
             go.name = $"InventoryUISlot_{i}";
             InventoryUISlot slot = go.GetComponent<InventoryUISlot>();
-            slot.Init(this, GameManager.Instance.Player.PlayerInventory.Items[i], i);
+            slot.Init(this, playerInventory.Items[i], i);
             inventoryUISlots.Add(slot);
         }
     }
-    public void SelInventoryUISlot(InventoryUISlot slot)
+    public virtual void SelInventoryUISlot(InventoryUISlot slot)
     {
+        if(selectedInventoryUISlot) inventoryUISlots[selectedInventoryUISlot.InventoryUISlotIdx].OffOutLine(); // 이전 선택된 슬롯 아웃라인 끄기
         selectedInventoryUISlot = slot;
         if (selectedInventoryUISlot == null)
         {
             playerInventory.SelSlotIdx = -1; // 필요 없지만 안전하게
-            return;
-        }
-        ResetSelectedInventoryUISlot(selectedInventoryUISlot.InventoryUISlotIdx);
-    }
-    void ResetSelectedInventoryUISlot(int idx)
-    {
-        for (int i = 0; i < inventoryUISlots.Count; i++)
-        {
-            if (i == idx) continue;
-            inventoryUISlots[i].OffOutLine();
         }
     }
+    
     protected void ResetInventoryUI()
     {
         for (int i = 0; i < inventoryUISlots.Count; i++)

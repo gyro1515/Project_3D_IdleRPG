@@ -41,6 +41,7 @@ public class PlayerController : BaseController
     }
     protected override void OnDIe()
     {
+        base.OnDIe();
         // 죽으면 게임오버
     }
 }

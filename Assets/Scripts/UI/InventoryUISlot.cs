@@ -13,6 +13,7 @@ public class InventoryUISlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;  // 아이콘이 없는 관계로 이름 표시.. ㅠㅠ
     private Outline outline;  // 장비 장착시 Outline 표시위한 컴포넌트
     public int InventoryUISlotIdx { get; private set; }
+    public ItemSO ItemData { get; private set; }
     BaseInventory baseInventory;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class InventoryUISlot : MonoBehaviour
     {
         if (slotData.ItemData == null)
         {
+            ItemData = null;
             icon.sprite = null;
             cntText.text = "";
             nameText.text = "";
@@ -40,6 +42,8 @@ public class InventoryUISlot : MonoBehaviour
         icon.sprite = slotData.ItemData.Icon;
         cntText.text = slotData.ItemData.ItemType == EItemType.Consumable ? slotData.ItemCount.ToString() : ""; // 소모품이 아니면 수량표시
         nameText.text = slotData.ItemData.DisplayName;
+        ItemData = slotData.ItemData;
+        //outline.enabled = true;
     }
     void OnClickSlot()
     {

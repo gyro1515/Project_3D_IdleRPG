@@ -27,21 +27,21 @@ public class PlayerAttackState : PlayerBaseState
     {
         base.Update();
 
-        float normalizedTime = GetNormalizedTime(stateMachine.Player.Animator, "Attack");
-        if (normalizedTime < 1f)
+        float normalizedTime = GetNormalizedTime(stateMachine.Player.Animator, "Attack"); // 0~1만 반환하도록 설정
+        if (normalizedTime < 0.95f) // 반복 재생이라 딱 1이 아니라 0.95f로 설정
         {
             // 추후 콜라이더 활성화 시간 무기에서 가져오도록 변경
             if (!alreadyAppliedDealing && normalizedTime >= 0.25f)
             {
                 // 콜라이더 활성화
-                //Debug.Log($"공격 활성: {normalizedTime}");
                 alreadyAppliedDealing = true;
+                stateMachine.Player.SetAttackColActive(true);
             }
 
             if (alreadyAppliedDealing && normalizedTime >= 0.4f)
             {
                 // 콜라이더 비활성화
-                //Debug.Log($"공격 비활성: {normalizedTime}");
+                stateMachine.Player.SetAttackColActive(false);
             }
         }
         else // 재생이 끝났다면
@@ -50,6 +50,11 @@ public class PlayerAttackState : PlayerBaseState
             {
                 if (IsInAttackRange())
                 {
+                    if (stateMachine.Player.PlayerEquipment.CurEquipments[EEquipmentType.Weapon] == null)
+                    {
+                        stateMachine.ChangeState(stateMachine.IdleState); // 무기 없다면 대기 상태
+                        return;
+                    }
                     alreadyAppliedDealing = false;
                 }
                 else // 사정거리 밖이라면

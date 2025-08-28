@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2bba06d989ad747baff8a802d9aed7, type: 3}
   m_Name: EnemySO
   m_EditorClassIdentifier: 
-  <MaxHp>k__BackingField: 50
+  <MaxHp>k__BackingField: 100
   <GroundData>k__BackingField:
     <BaseSpeed>k__BackingField: 7
     <BaseRotationDamping>k__BackingField: 5
-  weaponPrefab: {fileID: 0}
+  weaponDataSO: {fileID: 11400000, guid: 1873612e0c3ec414a8b1e1b2788aed0d, type: 2}
   <Gold>k__BackingField: 5
   <Exp>k__BackingField: 3

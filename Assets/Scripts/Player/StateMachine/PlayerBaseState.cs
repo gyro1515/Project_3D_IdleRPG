@@ -27,7 +27,9 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        if(stateMachine.Target.IsDIe)
+        if (stateMachine.Player.IsDIe) return;
+
+        if (stateMachine.Target && stateMachine.Target.IsDIe)
         {
             stateMachine.Target = GameManager.Instance.GetEnemyTarget();
         }
@@ -56,6 +58,7 @@ public class PlayerBaseState : IState
     }
     private Vector3 GetMovementDirection()
     {
+        if (!stateMachine.Target) return Vector3.zero;
         Vector3 dir = (stateMachine.Target.gameObject.transform.position - stateMachine.Player.gameObject.transform.position).normalized;
         return dir;
     }
@@ -86,11 +89,12 @@ public class PlayerBaseState : IState
 
         if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
         {
-            return nextInfo.normalizedTime;
+            return Mathf.Repeat(nextInfo.normalizedTime, 1f);
         }
         else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
         {
-            return currentInfo.normalizedTime;
+            return Mathf.Repeat(currentInfo.normalizedTime, 1f);
+
         }
         else
         {
@@ -102,6 +106,8 @@ public class PlayerBaseState : IState
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Player.transform.position).sqrMagnitude;
 
         // 무기에서 사정거리 가져오기
-        return playerDistanceSqr <= 3 * 3;
+        //return playerDistanceSqr <= 3 * 3;
+        float tmpRange = stateMachine.Player.PlayerEquipment.CurEquipments[EEquipmentType.Weapon].AttackRange;
+        return playerDistanceSqr <= tmpRange * tmpRange;
     }
 }

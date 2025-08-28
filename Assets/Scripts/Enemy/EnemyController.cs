@@ -7,15 +7,29 @@ public class EnemyController : BaseController
 {
     Enemy enemy;
     public event Action OnDropGold;
+    private EnemyStateMachine stateMachine;
     protected override void Awake()
     {
         base.Awake();
         enemy = GetComponent<Enemy>();
+        stateMachine = new EnemyStateMachine(enemy);
     }
-
+    private void Start()
+    {
+        stateMachine.Target = GameManager.Instance.Player;
+        stateMachine.ChangeState(stateMachine.IdleState);
+    }
+    private void Update()
+    {
+        stateMachine.Update();
+    }
+    private void FixedUpdate()
+    {
+        stateMachine.PhysicsUpdate();
+    }
     protected override void OnDIe()
     {
-        if (!enemy) return;
+        base.OnDIe();
         // 죽으면 골드 드랍
         StartCoroutine(DropGold(enemy.DropGold()));
     }
