@@ -299,7 +299,7 @@ MonoBehaviour:
     type: 3}
   enemyPrefabs:
   - {fileID: 402817389590256325, guid: ec8357bf42b81984e970329f6f276b1f, type: 3}
-  spawnCount: 3
+  spawnCount: 5
   enemies: []
 --- !u!4 &178854852
 Transform:
