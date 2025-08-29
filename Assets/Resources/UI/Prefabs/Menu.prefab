@@ -1930,6 +1930,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnlBtn: {fileID: 6280964448583038912}
+  upBtn: {fileID: 393273083642757126}
+  downBtn: {fileID: 1223306160908368527}
+  leftBtn: {fileID: 2843975899979007505}
+  rightBtn: {fileID: 4051394174639842911}
 --- !u!1 &2797437435198325276
 GameObject:
   m_ObjectHideFlags: 0

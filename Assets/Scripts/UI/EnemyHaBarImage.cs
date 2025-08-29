@@ -19,6 +19,7 @@ public class EnemyHaBarImage : MonoBehaviour
         enemy = _enemy;
         enabled = true;
         enemy.Hp.OnValueChange += SetHpBar;
+        gameObject.SetActive(true);
     }
 
     public void SetHpBar(float curHp, float maxHp)

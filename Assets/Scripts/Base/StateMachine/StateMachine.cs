@@ -28,6 +28,7 @@ public abstract class StateMachine
 
     public void Update()
     {
+        //Debug.Log("StateUpdate");
         currentState?.Update();
     }
 

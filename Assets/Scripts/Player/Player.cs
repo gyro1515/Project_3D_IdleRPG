@@ -8,7 +8,7 @@ public class Player : BaseCharacter
     [Header("플레이어 세팅")]
     [SerializeField] PlayerSO playerData;
     public PlayerSO PlayerData { get => playerData; }
-    PlayerController playerController;
+    public PlayerController PlayerController { get; private set; }
     public PlayerInventory PlayerInventory {  get; private set; }
     public PlayerEquipment PlayerEquipment {  get; private set; }
     public CharacterStat Mp { get; set; }
@@ -36,7 +36,7 @@ public class Player : BaseCharacter
     protected override void Awake()
     {
         base.Awake();
-        playerController = GetComponent<PlayerController>();
+        PlayerController = GetComponent<PlayerController>();
         PlayerInventory = GetComponent<PlayerInventory>();
         PlayerEquipment = GetComponent<PlayerEquipment>();
         Hp = new CharacterStat(playerData.MaxHp);

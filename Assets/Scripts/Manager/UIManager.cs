@@ -37,7 +37,6 @@ public class UIManager : SingletonMono<UIManager>
         GameManager.Instance.Player.OnGoldChanged += hud.SetGoldText;
         // 이벤트 구독하고 플레이어 상태에 맞게 UI초기화
         GameManager.Instance.Player.UIInit();
-        hud.SetStageText(11);
     }
 
 
@@ -174,9 +173,11 @@ public class UIManager : SingletonMono<UIManager>
     {
         enemyHpBars.AddEnemyHpBar(enemy);
     }
-    public void OpenMenu()
+    public void ActiveMenu(bool active)
     {
-        menu.OpenUI();
+        Debug.Log($"메뉴: {active}");
+        if(active) menu.OpenUI();
+        else menu.CloseUI();
     }
     public void AddMovingGoldIcon(Vector3 startPos)
     {
@@ -185,5 +186,9 @@ public class UIManager : SingletonMono<UIManager>
     public void AddDurationItemUISlot(ConsumableItemSO itemData)
     {
         durationItemUI?.AddDurationItemUISlot(itemData);
+    }
+    public void SetStageText(int idx)
+    {
+        hud.SetStageText(idx);
     }
 }

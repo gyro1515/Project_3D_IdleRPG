@@ -43,5 +43,11 @@ public class EnemyController : BaseController
             OnDropGold?.Invoke(gameObject.transform.position);
             yield return new WaitForSeconds(0.1f);
         }
+        StartCoroutine(StartDestory());
+    }
+    IEnumerator StartDestory()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Destroy(gameObject);
     }
 }
