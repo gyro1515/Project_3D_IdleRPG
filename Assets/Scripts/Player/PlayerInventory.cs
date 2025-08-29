@@ -85,14 +85,14 @@ public class PlayerInventory : MonoBehaviour
             Items[SelSlotIdx].ItemCount = 0;
         }
     }
-    public void UseItem()
+    public bool UseItem() // 반환 트루는 아이템을 사용해서 없어졌을 때만
     {
-        if (SelSlotIdx == -1) return;
-        if (Items[SelSlotIdx].ItemData == null) return;
+        if (SelSlotIdx == -1) return false;
+        if (Items[SelSlotIdx].ItemData == null) return false;
         if (Items[SelSlotIdx].ItemData.ItemType == EItemType.Consumable) // 소비 아이템
         {
             ConsumableItemSO consumableItem = Items[SelSlotIdx].ItemData as ConsumableItemSO;
-            if (!consumableItem) { Debug.LogError("오류"); return; } // 캐스팅 실패시 리턴 -> 오류 
+            if (!consumableItem) { Debug.LogError("오류"); return false; } // 캐스팅 실패시 리턴 -> 오류 
             //consumableItem.UseItem(player); // 아이템 사용
             Debug.Log($"{consumableItem.DisplayName} 사용!");
             for (int i = 0; i < consumableItem.Consumables.Length; i++)
@@ -120,7 +120,9 @@ public class PlayerInventory : MonoBehaviour
             {
                 Items[SelSlotIdx].ItemData = null;
                 Items[SelSlotIdx].ItemCount = 0;
+                return true;
             }
         }
+        return false;
     }
 }

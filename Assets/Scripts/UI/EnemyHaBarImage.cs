@@ -19,6 +19,7 @@ public class EnemyHaBarImage : MonoBehaviour
         enemy = _enemy;
         enabled = true;
         enemy.Hp.OnValueChange += SetHpBar;
+        hpBarImg.fillAmount = 1f;
         gameObject.SetActive(true);
     }
 

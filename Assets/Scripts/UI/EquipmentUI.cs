@@ -63,6 +63,7 @@ public class EquipmentUI : BaseInventory
         {
             equipBtn.gameObject.SetActive(false);
             useBtn.gameObject.SetActive(false);
+            itemDescriptionText.text = "";
         }
         else
         {
@@ -85,6 +86,8 @@ public class EquipmentUI : BaseInventory
         EquippableItemSO equippableItemSO = selectedInventoryUISlot.ItemData as EquippableItemSO;
         // 인벤토리 아이템은 삭제
         playerInventory.RemoveItem(selectedInventoryUISlot.InventoryUISlotIdx);
+        // 인벤토리 설명/버튼 UI도 설정
+        SelInventoryUISlot(null);
         // 장비창에 장착
         playerEquipment?.EquipEquipment(equippableItemSO);
         // UI 갱신
@@ -101,7 +104,7 @@ public class EquipmentUI : BaseInventory
     void OnUseItem()
     {
         playerInventory.SelSlotIdx = selectedInventoryUISlot.InventoryUISlotIdx;
-        playerInventory?.UseItem();
+        if (playerInventory.UseItem()) SelInventoryUISlot(null); // 아이템을 다 사용했다면 UI 세팅해주기
         ResetInventoryUI();
     }
     protected void ResetEquipmentUI()
