@@ -15,6 +15,7 @@ public abstract class BaseCharacter : MonoBehaviour
     [field: SerializeField] public AnimationData AnimationData { get; private set; } = new AnimationData();
     float attackRangeModifier = 1f; // 공격 범위 보정값 (아이템으로 변경 가능하게)
     float attackDamageModifier = 1f; // 공격 데미지 보정값 (아이템으로 변경 가능하게)
+    
     public float AttackRangeModifier { 
         get { return attackRangeModifier; } 
         set { attackRangeModifier = value; SetAttackRange(); } } 
